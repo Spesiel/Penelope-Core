@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penelope.Collections", "Penelope.Collections\Penelope.Collections.csproj", "{592F4CB7-C980-4636-81D4-4BCDC3033D50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penelope.CollectionsTest", "Penelope.CollectionsTest\Penelope.CollectionsTest.csproj", "{9B656275-B77F-4DDB-B43A-FB987D29F6F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{592F4CB7-C980-4636-81D4-4BCDC3033D50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592F4CB7-C980-4636-81D4-4BCDC3033D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592F4CB7-C980-4636-81D4-4BCDC3033D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592F4CB7-C980-4636-81D4-4BCDC3033D50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B656275-B77F-4DDB-B43A-FB987D29F6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B656275-B77F-4DDB-B43A-FB987D29F6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B656275-B77F-4DDB-B43A-FB987D29F6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B656275-B77F-4DDB-B43A-FB987D29F6F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
