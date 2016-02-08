@@ -6,6 +6,14 @@ namespace Penelope.Collections
 {
     public class FirstInFirstOut<T>
     {
+        #region Delegates + Events
+
+        public event EventHandler<EventArgs> Added;
+
+        public event EventHandler<EventArgs> Empty;
+
+        #endregion Delegates + Events
+
         #region Fields + Properties
 
         public int Count { get { return _Count; } }
@@ -56,7 +64,7 @@ namespace Penelope.Collections
 
         public FirstInFirstOut(int capacity, int growthRate, ICollection<T> collection)
         {
-            if (collection != null) capacity =_Count = collection.Count;
+            if (collection != null) capacity = _Count = collection.Count;
             if (capacity < 0) throw new ArgumentOutOfRangeException(nameof(capacity));
             if (growthRate < 1) throw new ArgumentOutOfRangeException(nameof(growthRate));
 
@@ -83,6 +91,7 @@ namespace Penelope.Collections
 
             T ans = _Array[_CurrentIndex++];
             _Count--;
+            if (Count == 0) Empty(this, new EventArgs());
 
             if (_Array.Length - (Count + _CurrentIndex) >= _GrowthRate + 2)
             {
@@ -101,6 +110,8 @@ namespace Penelope.Collections
 
             _Array[_Count++] = value;
             if (Count > PeakCount) _PeakCount = Count;
+
+            Added(this, new EventArgs());
         }
 
         public bool Remove(T value)
@@ -119,6 +130,7 @@ namespace Penelope.Collections
             }
 
             Array.Copy(_Array, index + 1, _Array, index, (--_Count) - index);
+            if (Count == 0) Empty(this, new EventArgs());
 
             return ans;
         }
