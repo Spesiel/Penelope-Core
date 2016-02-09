@@ -9,7 +9,7 @@ namespace Penelope.Collections.Test
         #region Test Constructors
 
         [TestMethod]
-        public void TestConstructor1()
+        public void TestFIFOConstructor1()
         {
             FirstInFirstOut<int> fifo = new FirstInFirstOut<int>(3, 4, null);
 
@@ -17,7 +17,7 @@ namespace Penelope.Collections.Test
         }
 
         [TestMethod]
-        public void TestConstructor2()
+        public void TestFIFOConstructor2()
         {
             ReadOnlyCollection<int> expected = new ReadOnlyCollection<int>(new int[] { 1, 3, 5, 7, 9, 11 });
             FirstInFirstOut<int> fifo = new FirstInFirstOut<int>(expected);

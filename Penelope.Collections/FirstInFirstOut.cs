@@ -8,9 +8,9 @@ namespace Penelope.Collections
     {
         #region Delegates + Events
 
-        public event EventHandler<EventArgs> Added;
+        public event EventHandler<EventArgs> Added = delegate { };
 
-        public event EventHandler<EventArgs> Empty;
+        public event EventHandler<EventArgs> Empty = delegate { };
 
         #endregion Delegates + Events
 
@@ -141,7 +141,7 @@ namespace Penelope.Collections
 
         public T Peek()
         {
-            return _Array[_CurrentIndex];
+            return Count > 0 ? _Array[_CurrentIndex] : default(T);
         }
 
         #endregion Peeking
