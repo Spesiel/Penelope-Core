@@ -4,8 +4,33 @@ using System.Collections.ObjectModel;
 
 namespace Penelope.Collections
 {
-    public class FirstInFirstOut<T>
+    public class LastInFirstOut<T>
     {
+        #region Fields + Properties
+
+        public int Count { get { return _Count; } }
+        public int PeakCount { get { return _PeakCount; } }
+        private T[] _Array;
+        private int _Count;
+        private int _GrowthRate;
+        private int _PeakCount;
+
+        #endregion Fields + Properties
+
+        #region To show the full queue
+
+        public ReadOnlyCollection<T> Stack
+        {
+            get
+            {
+                T[] result = new T[Count];
+                Array.Copy(_Array, result, Count);
+                return new ReadOnlyCollection<T>(result);
+            }
+        }
+
+        #endregion To show the full queue
+
         #region Delegates + Events
 
         public event EventHandler<EventArgs> Added = delegate { };
@@ -14,55 +39,29 @@ namespace Penelope.Collections
 
         #endregion Delegates + Events
 
-        #region Fields + Properties
-
-        public int Count { get { return _Count; } }
-        public int PeakCount { get { return _PeakCount; } }
-        private T[] _Array;
-        private int _Count;
-        private int _CurrentIndex;
-        private int _GrowthRate;
-        private int _PeakCount;
-
-        #endregion Fields + Properties
-
-        #region To show the full queue
-
-        public ReadOnlyCollection<T> Queue
-        {
-            get
-            {
-                T[] result = new T[Count];
-                Array.Copy(_Array, _CurrentIndex, result, 0, Count);
-                return new ReadOnlyCollection<T>(result);
-            }
-        }
-
-        #endregion To show the full queue
-
         #region Constructors
 
-        public FirstInFirstOut() : this(16, 4, null)
+        public LastInFirstOut() : this(16, 4, null)
         {
         }
 
-        public FirstInFirstOut(int capacity) : this(capacity, 4, null)
+        public LastInFirstOut(int capacity) : this(capacity, 4, null)
         {
         }
 
-        public FirstInFirstOut(int capacity, int growthRate) : this(capacity, growthRate, null)
+        public LastInFirstOut(int capacity, int growthRate) : this(capacity, growthRate, null)
         {
         }
 
-        public FirstInFirstOut(ICollection<T> collection) : this(0, 4, collection)
+        public LastInFirstOut(ICollection<T> collection) : this(0, 4, collection)
         {
         }
 
-        public FirstInFirstOut(ICollection<T> collection, int growthRate) : this(0, growthRate, collection)
+        public LastInFirstOut(ICollection<T> collection, int growthRate) : this(0, growthRate, collection)
         {
         }
 
-        public FirstInFirstOut(int capacity, int growthRate, ICollection<T> collection)
+        public LastInFirstOut(int capacity, int growthRate, ICollection<T> collection)
         {
             if (collection != null) capacity = _Count = collection.Count;
             if (capacity < 0) throw new ArgumentOutOfRangeException(nameof(capacity));
@@ -70,11 +69,14 @@ namespace Penelope.Collections
 
             _Array = new T[capacity];
             _GrowthRate = growthRate;
-            _CurrentIndex = 0;
 
             if (collection != null)
             {
                 collection.CopyTo(_Array, 0);
+            }
+            else
+            {
+                _Count = 0;
             }
         }
 
@@ -82,18 +84,17 @@ namespace Penelope.Collections
 
         #region Queuing and Removing
 
-        public T Dequeue()
+        public T Pop()
         {
             if (Count == 0)
             {
                 return default(T);
             }
 
-            T ans = _Array[_CurrentIndex++];
-            _Count--;
+            T ans = _Array[--_Count];
             if (Count == 0) Empty(this, new EventArgs());
 
-            if (_Array.Length - (Count + _CurrentIndex) >= _GrowthRate + 2)
+            if (_Array.Length - Count >= _GrowthRate + 2)
             {
                 ResizeGrowOrShrink();
             }
@@ -101,9 +102,9 @@ namespace Penelope.Collections
             return ans;
         }
 
-        public void Enqueue(T value)
+        public void Push(T value)
         {
-            if (_Array.Length - (Count + _CurrentIndex) <= _GrowthRate + 2)
+            if (_Array.Length - Count <= _GrowthRate + 2)
             {
                 ResizeGrowOrShrink();
             }
@@ -141,7 +142,7 @@ namespace Penelope.Collections
 
         public T Peek()
         {
-            return Count > 0 ? _Array[_CurrentIndex] : default(T);
+            return Count > 0 ? _Array[Count - 1] : default(T);
         }
 
         #endregion Peeking
@@ -151,8 +152,7 @@ namespace Penelope.Collections
         private T[] ResizeGrowOrShrink()
         {
             T[] result = new T[Count + _GrowthRate];
-            Array.Copy(_Array, _CurrentIndex, result, 0, Count);
-            _CurrentIndex = 0;
+            Array.Copy(_Array, result, Count);
             _Array = result;
             return result;
         }
