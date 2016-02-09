@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="CLSCompliant.cs" />
     <Compile Include="FirstInFirstOut.cs" />
+    <Compile Include="LastInFirstOut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

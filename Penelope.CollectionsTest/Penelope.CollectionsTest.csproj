@@ -60,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CLSCompliant.cs" />
+    <Compile Include="LastInLastOut.cs" />
     <Compile Include="FirstInFirstOutTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
