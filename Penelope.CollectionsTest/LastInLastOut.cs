@@ -9,7 +9,7 @@ namespace Penelope.Collections.Test
         #region Test Constructors
 
         [TestMethod]
-        public void TestLIFOConstructor1()
+        public void TestLastInLastOutConstructor1()
         {
             LastInFirstOut<int> lifo = new LastInFirstOut<int>(3, 4, null);
 
@@ -17,7 +17,7 @@ namespace Penelope.Collections.Test
         }
 
         [TestMethod]
-        public void TestLIFOConstructor2()
+        public void TestLastInLastOutConstructor2()
         {
             ReadOnlyCollection<int> expected = new ReadOnlyCollection<int>(new int[] { 1, 3, 5, 7, 9, 11 });
             LastInFirstOut<int> lifo = new LastInFirstOut<int>(expected);
