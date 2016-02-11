@@ -8,18 +8,6 @@ namespace Penelope.Controls
     {
         #region Fields + Properties
 
-        public Control Control
-        {
-            get
-            {
-                return control;
-            }
-            set
-            {
-                control = value;
-            }
-        }
-
         public string Title
         {
             get
@@ -33,27 +21,33 @@ namespace Penelope.Controls
             }
         }
 
-        private Size SizeCollapsed;
-        private Size SizeExpanded;
+        private bool _AreParametersSet;
+        private Size _SizeCollapsed;
+        private Size _SizeExpanded;
 
         #endregion Fields + Properties
 
-        #region Constructors
+        #region Methods
+
+        private Control _Control;
 
         public Collapsible()
         {
             InitializeComponent();
         }
 
-        #endregion Constructors
-
-        #region Methods
-
-        public void SetCollapsingParameters(Size size, bool collapsedByDefault)
+        public void SetCollapsingParameters(Size size, Control control, bool collapsedByDefault)
         {
-            Size sizeCollapsed = SizeExpanded = size;
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+            _AreParametersSet = true;
+
+            _Control = control;
+            Size sizeCollapsed = _SizeExpanded = size;
             sizeCollapsed.Height = label.Height;
-            SizeCollapsed = sizeCollapsed;
+            _SizeCollapsed = sizeCollapsed;
 
             // Requested collapsed by default
             if (collapsedByDefault)
@@ -65,10 +59,15 @@ namespace Penelope.Controls
 
         private void label_DoubleClick(object sender, EventArgs e)
         {
-            control.Visible = !control.Visible;
+            if (!_AreParametersSet)
+            {
+                throw new MissingFieldException(nameof(_Control));
+            }
+
+            _Control.Visible = !_Control.Visible;
 
             // Depending on visibility, the component is either collapsed or not
-            Size = control.Visible ? SizeExpanded : SizeCollapsed;
+            Size = _Control.Visible ? _SizeExpanded : _SizeCollapsed;
         }
 
         #endregion Methods
