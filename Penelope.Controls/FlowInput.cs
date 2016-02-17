@@ -17,14 +17,33 @@ namespace Penelope.Controls
 
         #region Constructors
 
-        public FlowInput()
+        public FlowInput(IList<string> values)
         {
             InitializeComponent();
+
+            if (values != null && values.Count > 0)
+            {
+                foreach (string str in values.OrderBy(i => i))
+                {
+                    flow.Controls.Add(NewLabel(str));
+                }
+            }
         }
 
         #endregion Constructors
 
         #region Methods
+
+        private static Label NewLabel(string value)
+        {
+            Label newLabel = new Label();
+            newLabel.AutoSize = true;
+            newLabel.Margin = new Padding(3);
+            newLabel.BorderStyle = BorderStyle.FixedSingle;
+            newLabel.Cursor = Cursors.Hand;
+            newLabel.Text = value;
+            return newLabel;
+        }
 
         private void OnDoubleClick(object sender, EventArgs e)
         {
@@ -40,13 +59,7 @@ namespace Penelope.Controls
                         && !string.IsNullOrEmpty(textBox.Text))
                     {
                         flow.Controls.Remove(textBox);
-
-                        Label newLabel = new Label();
-                        newLabel.AutoSize = true;
-                        newLabel.Margin = new Padding(3);
-                        newLabel.BorderStyle = BorderStyle.FixedSingle;
-                        newLabel.Cursor = Cursors.Hand;
-                        newLabel.Text = textBox.Text;
+                        Label newLabel = NewLabel(textBox.Text.Trim());
 
                         flow.Controls.Add(newLabel);
                         flow.Controls[flow.Controls.Count - 1].DoubleClick += (se, edc) =>
