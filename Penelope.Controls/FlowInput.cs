@@ -17,10 +17,17 @@ namespace Penelope.Controls
 
         #region Constructors
 
-        public FlowInput(IList<string> values)
+        public FlowInput()
         {
             InitializeComponent();
+        }
 
+        #endregion Constructors
+
+        #region Methods
+
+        public void Insert(IList<string> values)
+        {
             if (values != null && values.Count > 0)
             {
                 foreach (string str in values.OrderBy(i => i))
@@ -29,10 +36,6 @@ namespace Penelope.Controls
                 }
             }
         }
-
-        #endregion Constructors
-
-        #region Methods
 
         private static Label NewLabel(string value)
         {
