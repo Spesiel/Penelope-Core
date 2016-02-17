@@ -8,8 +8,8 @@ namespace Penelope.Collections
     {
         #region Fields + Properties
 
-        public int Count { get { return _Count; } }
-        public int PeakCount { get { return _PeakCount; } }
+        public int Count => _Count;
+        public int PeakCount => _PeakCount;
         private T[] _Array;
         private int _Count;
         private int _GrowthRate;
@@ -140,10 +140,7 @@ namespace Penelope.Collections
 
         #region Peeking
 
-        public T Peek()
-        {
-            return Count > 0 ? _Array[Count - 1] : default(T);
-        }
+        public T Peek() => Count > 0 ? _Array[Count - 1] : default(T);
 
         #endregion Peeking
 

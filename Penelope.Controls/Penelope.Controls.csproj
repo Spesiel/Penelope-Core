@@ -58,6 +58,12 @@
     <Compile Include="Collapsible.Designer.cs">
       <DependentUpon>Collapsible.cs</DependentUpon>
     </Compile>
+    <Compile Include="FlowInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FlowInput.Designer.cs">
+      <DependentUpon>FlowInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -67,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Collapsible.resx">
       <DependentUpon>Collapsible.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowInput.resx">
+      <DependentUpon>FlowInput.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
