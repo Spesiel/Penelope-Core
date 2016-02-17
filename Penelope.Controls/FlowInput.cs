@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Penelope.Controls
@@ -6,6 +8,8 @@ namespace Penelope.Controls
     public partial class FlowInput : UserControl
     {
         #region Fields + Properties
+
+        public IEnumerable<string> Inputs => flow.Controls.Cast<Control>().Select(i => i.Text);
 
         private bool HasTextBox = false;
 
