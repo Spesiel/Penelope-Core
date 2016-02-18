@@ -65,12 +65,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Penelope.Collections\Penelope.Collections.csproj">
-      <Project>{592f4cb7-c980-4636-81d4-4bcdc3033d50}</Project>
-      <Name>Penelope.Collections</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Pénélope Blossom.pfx" />
   </ItemGroup>
   <Choose>
